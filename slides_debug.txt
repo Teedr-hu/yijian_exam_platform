@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "<string>", line 16, in <module>
+UnicodeEncodeError: 'gbk' codec can't encode character '\xa0' in position 51: illegal multibyte sequence
+ppt/slides/slide1.xml: 一级建造师 建筑工程管理与实务 考后估分 主讲老师：徐云博
+ppt/slides/slide2.xml: 2025 年一级建造师 《 建筑实务 》 考试真题及答案解析
+ppt/slides/slide3.xml: 一、单项选择题 一、单项选择题（共 20 题，每题 1 分，每题的备选项中，只有一个最符合题意。）

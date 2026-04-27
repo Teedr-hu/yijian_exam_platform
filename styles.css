@@ -362,10 +362,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* 隐藏 Streamlit 自动生成的页面导航 */
-nav.stNavigation {
-    display: none !important;
-}
-
-section[data-testid="stSidebar"] > div:first-child {
+[data-testid="stSidebarNav"] {
     display: none !important;
 }
