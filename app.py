@@ -13,21 +13,6 @@ st.set_page_config(
 
 # 加载自定义样式
 def load_css():
-    # 使用 Streamlit 的 hideSidebarNav 功能
-    st.html("""
-    <style>
-    /* 隐藏 Streamlit 自动生成的页面导航 */
-    nav.stNavigation {
-        display: none !important;
-    }
-
-    /* 隐藏顶部 Deploy 按钮区域 */
-    header {
-        display: none !important;
-    }
-    </style>
-    """)
-
     css_path = Path(__file__).parent / "styles.css"
     if css_path.exists():
         with open(css_path, "r", encoding="utf-8") as f:

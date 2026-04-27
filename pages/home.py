@@ -84,13 +84,14 @@ def show():
             st.plotly_chart(fig, use_container_width=True)
 
         with col_table:
-            st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
-            st.markdown("**📋 详细数据**")
+            st.markdown("**📋 详细数据**", unsafe_allow_html=True)
+            table_html = "<div class='chart-container'>"
             for _, row in df.iterrows():
                 rate = row['掌握率']
                 emoji = "🟢" if rate >= 80 else "🟡" if rate >= 60 else "🔴"
-                st.markdown(f"{emoji} **{row['category']}**: {rate}% (错{row['wrong_count']}题)")
-            st.markdown("</div>", unsafe_allow_html=True)
+                table_html += f"<div style='padding: 8px 0; border-bottom: 1px solid #e2e8f0;'>{emoji} <b>{row['category']}</b>: {rate}% (错{row['wrong_count']}题)</div>"
+            table_html += "</div>"
+            st.markdown(table_html, unsafe_allow_html=True)
 
     else:
         st.markdown("""

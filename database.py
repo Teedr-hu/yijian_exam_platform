@@ -59,6 +59,13 @@ def init_database():
         )
     """)
 
+    # 创建索引加速查询
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_questions_category ON questions(category)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_answer_records_question_id ON answer_records(question_id)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_answer_records_answered_at ON answer_records(answered_at)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_wrong_questions_question_id ON wrong_questions(question_id)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_wrong_questions_mastered ON wrong_questions(mastered)")
+
     conn.commit()
     conn.close()
 
@@ -206,13 +213,14 @@ def get_statistics():
     cursor.execute("SELECT COUNT(*) as not_mastered FROM wrong_questions WHERE mastered = FALSE")
     not_mastered = cursor.fetchone()['not_mastered']
 
-    # 分类统计
+    # 分类统计 - 使用JOIN替代子查询提高性能
     cursor.execute("""
-        SELECT category,
-               COUNT(*) as total,
-               SUM(CASE WHEN id IN (SELECT question_id FROM wrong_questions WHERE mastered = FALSE) THEN 1 ELSE 0 END) as wrong_count
-        FROM questions
-        GROUP BY category
+        SELECT q.category,
+               COUNT(q.id) as total,
+               COUNT(wq.id) as wrong_count
+        FROM questions q
+        LEFT JOIN wrong_questions wq ON q.id = wq.question_id AND wq.mastered = FALSE
+        GROUP BY q.category
     """)
     category_stats = [dict(row) for row in cursor.fetchall()]
 
