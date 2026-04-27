@@ -350,3 +350,13 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 12px;
     padding: 16px 20px;
 }
+
+/* === 隐藏指标图标 === */
+[data-testid="stMetricIcon"] {
+    display: none !important;
+}
+
+/* 隐藏 Streamlit 状态图标 */
+.stStatusWidget {
+    display: none !important;
+}
