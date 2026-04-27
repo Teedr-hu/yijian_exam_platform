@@ -1,7 +1,8 @@
 __pycache__/
 *.pyc
 *.pyo
-data/
+data/*
+!data/exam.db
 *.db
 .pytest_cache/
 .coverage
