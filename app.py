@@ -20,7 +20,7 @@ def load_css():
 
 # 初始化数据库
 init_database()
-import_sample_questions()
+# import_sample_questions()  # 暂时禁用自动导入示例题目
 
 
 def render_metric_card(label, value, delta="", card_type=""):

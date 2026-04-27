@@ -40,14 +40,14 @@ def show():
             if max_wrong == 0:
                 st.success("🎉 错题本已清空！暂无需要针对性练习的题目")
                 return
-            question_count = st.slider("选择题目数量", 1, min(max_wrong, 20), min(5, max_wrong))
+            question_count = st.number_input("选择题目数量", 1, max_wrong, min(5, max_wrong))
         else:
             all_qs = get_questions_by_category(selected_category) if selected_category else get_all_questions()
             max_count = len(all_qs)
             if max_count == 0:
                 st.info("该分类暂无题目，请先添加题目")
                 return
-            question_count = st.slider("选择题目数量", 1, min(max_count, 20), min(10, max_count))
+            question_count = st.number_input("选择题目数量", 1, max_count, min(10, max_count))
 
         st.markdown("<hr class='custom-divider'>", unsafe_allow_html=True)
 
@@ -97,7 +97,7 @@ def show():
         user_answer = st.radio(
             "请选择答案：",
             list(options.keys()),
-            format_func=lambda x: f"<b>{x}.</b> {options[x]}",
+            format_func=lambda x: f"{x}. {options[x]}",
             key=f"q_{q['id']}"
         )
 
