@@ -58,6 +58,7 @@ def main():
                 "📝 模拟考试",
                 "❌ 错题本",
                 "📊 薄弱点分析",
+                "📚 学习资料",
                 "📖 题目管理"
             ],
             index=0,
@@ -85,6 +86,9 @@ def main():
     elif page == "📊 薄弱点分析":
         from pages import analysis
         analysis.show()
+    elif page == "📚 学习资料":
+        from pages import materials
+        materials.show()
     elif page == "📖 题目管理":
         from pages import question_manager
         question_manager.show()
