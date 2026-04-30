@@ -3,6 +3,38 @@ import streamlit as st
 from pathlib import Path
 from database import init_database, import_sample_questions
 
+# ========== 访问码验证 ==========
+ACCESS_CODE = "2026"  # 内测码，可自行修改
+
+def check_access():
+    """验证访问码，未验证则显示输入框"""
+    if "access_granted" not in st.session_state:
+        st.session_state["access_granted"] = False
+
+    if not st.session_state["access_granted"]:
+        st.markdown("""
+        <div style="text-align: center; padding: 80px 20px;">
+            <h1>📚 一建考试模拟平台</h1>
+            <p style="color: #64748b; margin: 20px 0;">请输入访问码进入内测</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        col1, col2, col3 = st.columns([1, 1, 1])
+        with col2:
+            code = st.text_input("访问码", type="password", placeholder="请输入访问码",
+                                  label_visibility="collapsed")
+            if code:
+                if code == ACCESS_CODE:
+                    st.session_state["access_granted"] = True
+                    st.rerun()
+                else:
+                    st.error("访问码错误，请联系管理员获取正确码")
+
+        st.stop()
+
+# 验证访问码
+check_access()
+
 # 页面配置
 st.set_page_config(
     page_title="一建考试模拟平台",
@@ -52,7 +84,7 @@ def main():
         st.markdown("<hr class='custom-divider'>", unsafe_allow_html=True)
 
         page = st.radio(
-            "",
+            "功能导航",
             [
                 "🏠 首页概览",
                 "📝 模拟考试",
